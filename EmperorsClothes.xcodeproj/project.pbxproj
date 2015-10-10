@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2681DB971BC02587006F786E /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 2681DB961BC02587006F786E /* Color.m */; settings = {ASSET_TAGS = (); }; };
 		26A839671B10C6460008A0C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A839661B10C6460008A0C9 /* main.m */; };
 		26A8396A1B10C6460008A0C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A839691B10C6460008A0C9 /* AppDelegate.m */; };
 		26A8396D1B10C6460008A0C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A8396C1B10C6460008A0C9 /* ViewController.m */; };
@@ -14,6 +15,7 @@
 		26A839721B10C6460008A0C9 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 26A839711B10C6460008A0C9 /* Images.xcassets */; };
 		26A839751B10C6460008A0C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A839731B10C6460008A0C9 /* LaunchScreen.xib */; };
 		26A839811B10C6470008A0C9 /* EmperorsClothesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A839801B10C6470008A0C9 /* EmperorsClothesTests.m */; };
+		26A8398C1B10CC650008A0C9 /* Wardrobe.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A8398B1B10CC650008A0C9 /* Wardrobe.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +29,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2681DB951BC02587006F786E /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
+		2681DB961BC02587006F786E /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
 		26A839611B10C6460008A0C9 /* EmperorsClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmperorsClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A839651B10C6460008A0C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26A839661B10C6460008A0C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -40,6 +44,8 @@
 		26A8397A1B10C6470008A0C9 /* EmperorsClothesTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EmperorsClothesTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A8397F1B10C6470008A0C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26A839801B10C6470008A0C9 /* EmperorsClothesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmperorsClothesTests.m; sourceTree = "<group>"; };
+		26A8398A1B10CC650008A0C9 /* Wardrobe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wardrobe.h; sourceTree = "<group>"; };
+		26A8398B1B10CC650008A0C9 /* Wardrobe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wardrobe.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,8 +91,12 @@
 				26A839691B10C6460008A0C9 /* AppDelegate.m */,
 				26A8396B1B10C6460008A0C9 /* ViewController.h */,
 				26A8396C1B10C6460008A0C9 /* ViewController.m */,
+				26A8398A1B10CC650008A0C9 /* Wardrobe.h */,
+				26A8398B1B10CC650008A0C9 /* Wardrobe.m */,
 				26A8396E1B10C6460008A0C9 /* Main.storyboard */,
 				26A839711B10C6460008A0C9 /* Images.xcassets */,
+				2681DB951BC02587006F786E /* Color.h */,
+				2681DB961BC02587006F786E /* Color.m */,
 				26A839731B10C6460008A0C9 /* LaunchScreen.xib */,
 				26A839641B10C6460008A0C9 /* Supporting Files */,
 			);
@@ -163,7 +173,7 @@
 		26A839591B10C6460008A0C9 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0630;
+				LastUpgradeCheck = 0700;
 				ORGANIZATIONNAME = "Michael Sevy";
 				TargetAttributes = {
 					26A839601B10C6460008A0C9 = {
@@ -221,7 +231,9 @@
 			files = (
 				26A8396D1B10C6460008A0C9 /* ViewController.m in Sources */,
 				26A8396A1B10C6460008A0C9 /* AppDelegate.m in Sources */,
+				2681DB971BC02587006F786E /* Color.m in Sources */,
 				26A839671B10C6460008A0C9 /* main.m in Sources */,
+				26A8398C1B10CC650008A0C9 /* Wardrobe.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,6 +296,7 @@
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -349,6 +362,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EmperorsClothes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Sevy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -359,6 +373,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = EmperorsClothes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Sevy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -377,6 +392,7 @@
 				);
 				INFOPLIST_FILE = EmperorsClothesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Sevy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EmperorsClothes.app/EmperorsClothes";
 			};
@@ -392,6 +408,7 @@
 				);
 				INFOPLIST_FILE = EmperorsClothesTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = "Sevy.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/EmperorsClothes.app/EmperorsClothes";
 			};
@@ -416,6 +433,7 @@
 				26A839861B10C6470008A0C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		26A839871B10C6470008A0C9 /* Build configuration list for PBXNativeTarget "EmperorsClothesTests" */ = {
 			isa = XCConfigurationList;
@@ -424,6 +442,7 @@
 				26A839891B10C6470008A0C9 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
