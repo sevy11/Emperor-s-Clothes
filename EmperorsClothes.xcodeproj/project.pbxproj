@@ -7,7 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		2667F43C1BCDF89E0092E9E0 /* RootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2667F43B1BCDF89E0092E9E0 /* RootViewController.m */; settings = {ASSET_TAGS = (); }; };
 		2681DB971BC02587006F786E /* Color.m in Sources */ = {isa = PBXBuildFile; fileRef = 2681DB961BC02587006F786E /* Color.m */; settings = {ASSET_TAGS = (); }; };
+		2681DBDD1BCAE656006F786E /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBDB1BCAE656006F786E /* Bolts.framework */; settings = {ASSET_TAGS = (); }; };
+		2681DBDE1BCAE656006F786E /* Parse.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBDC1BCAE656006F786E /* Parse.framework */; settings = {ASSET_TAGS = (); }; };
+		2681DBE01BCAE6B9006F786E /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBDF1BCAE6B9006F786E /* AudioToolbox.framework */; };
+		2681DBE21BCAE6C5006F786E /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBE11BCAE6C5006F786E /* CFNetwork.framework */; };
+		2681DBE51BCAE6CF006F786E /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBE31BCAE6CF006F786E /* CoreGraphics.framework */; };
+		2681DBE61BCAE6CF006F786E /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBE41BCAE6CF006F786E /* CoreLocation.framework */; };
+		2681DBE81BCAE6E2006F786E /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBE71BCAE6E2006F786E /* QuartzCore.framework */; };
+		2681DBEA1BCAE6F0006F786E /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBE91BCAE6F0006F786E /* SystemConfiguration.framework */; };
+		2681DBEC1BCAE6F5006F786E /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBEB1BCAE6F5006F786E /* StoreKit.framework */; };
+		2681DBEE1BCAE701006F786E /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBED1BCAE701006F786E /* Security.framework */; };
+		2681DBF01BCAE771006F786E /* libsqlite3.0.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 2681DBEF1BCAE771006F786E /* libsqlite3.0.tbd */; };
+		2681DBF31BCAE924006F786E /* LogInViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2681DBF21BCAE924006F786E /* LogInViewController.m */; settings = {ASSET_TAGS = (); }; };
+		2681DBF61BCB2087006F786E /* SignUpVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 2681DBF51BCB2087006F786E /* SignUpVC.m */; settings = {ASSET_TAGS = (); }; };
+		2681DBF91BCC57C5006F786E /* WardrobeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2681DBF81BCC57C5006F786E /* WardrobeViewController.m */; settings = {ASSET_TAGS = (); }; };
 		26A839671B10C6460008A0C9 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A839661B10C6460008A0C9 /* main.m */; };
 		26A8396A1B10C6460008A0C9 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A839691B10C6460008A0C9 /* AppDelegate.m */; };
 		26A8396D1B10C6460008A0C9 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A8396C1B10C6460008A0C9 /* ViewController.m */; };
@@ -29,8 +44,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		2667F43A1BCDF89E0092E9E0 /* RootViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RootViewController.h; sourceTree = "<group>"; };
+		2667F43B1BCDF89E0092E9E0 /* RootViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RootViewController.m; sourceTree = "<group>"; };
 		2681DB951BC02587006F786E /* Color.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Color.h; sourceTree = "<group>"; };
 		2681DB961BC02587006F786E /* Color.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Color.m; sourceTree = "<group>"; };
+		2681DBDB1BCAE656006F786E /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
+		2681DBDC1BCAE656006F786E /* Parse.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Parse.framework; sourceTree = "<group>"; };
+		2681DBDF1BCAE6B9006F786E /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		2681DBE11BCAE6C5006F786E /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		2681DBE31BCAE6CF006F786E /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		2681DBE41BCAE6CF006F786E /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		2681DBE71BCAE6E2006F786E /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		2681DBE91BCAE6F0006F786E /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		2681DBEB1BCAE6F5006F786E /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
+		2681DBED1BCAE701006F786E /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		2681DBEF1BCAE771006F786E /* libsqlite3.0.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.0.tbd; path = usr/lib/libsqlite3.0.tbd; sourceTree = SDKROOT; };
+		2681DBF11BCAE924006F786E /* LogInViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogInViewController.h; sourceTree = "<group>"; };
+		2681DBF21BCAE924006F786E /* LogInViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogInViewController.m; sourceTree = "<group>"; };
+		2681DBF41BCB2087006F786E /* SignUpVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SignUpVC.h; sourceTree = "<group>"; };
+		2681DBF51BCB2087006F786E /* SignUpVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SignUpVC.m; sourceTree = "<group>"; };
+		2681DBF71BCC57C5006F786E /* WardrobeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WardrobeViewController.h; sourceTree = "<group>"; };
+		2681DBF81BCC57C5006F786E /* WardrobeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WardrobeViewController.m; sourceTree = "<group>"; };
 		26A839611B10C6460008A0C9 /* EmperorsClothes.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = EmperorsClothes.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		26A839651B10C6460008A0C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		26A839661B10C6460008A0C9 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -53,6 +87,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2681DBE61BCAE6CF006F786E /* CoreLocation.framework in Frameworks */,
+				2681DBF01BCAE771006F786E /* libsqlite3.0.tbd in Frameworks */,
+				2681DBEE1BCAE701006F786E /* Security.framework in Frameworks */,
+				2681DBEC1BCAE6F5006F786E /* StoreKit.framework in Frameworks */,
+				2681DBEA1BCAE6F0006F786E /* SystemConfiguration.framework in Frameworks */,
+				2681DBE81BCAE6E2006F786E /* QuartzCore.framework in Frameworks */,
+				2681DBE51BCAE6CF006F786E /* CoreGraphics.framework in Frameworks */,
+				2681DBE21BCAE6C5006F786E /* CFNetwork.framework in Frameworks */,
+				2681DBE01BCAE6B9006F786E /* AudioToolbox.framework in Frameworks */,
+				2681DBDE1BCAE656006F786E /* Parse.framework in Frameworks */,
+				2681DBDD1BCAE656006F786E /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -66,9 +111,49 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2681DBFA1BCC57E5006F786E /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				2667F43A1BCDF89E0092E9E0 /* RootViewController.h */,
+				2667F43B1BCDF89E0092E9E0 /* RootViewController.m */,
+				26A8396B1B10C6460008A0C9 /* ViewController.h */,
+				26A8396C1B10C6460008A0C9 /* ViewController.m */,
+				2681DBF71BCC57C5006F786E /* WardrobeViewController.h */,
+				2681DBF81BCC57C5006F786E /* WardrobeViewController.m */,
+				2681DBF41BCB2087006F786E /* SignUpVC.h */,
+				2681DBF51BCB2087006F786E /* SignUpVC.m */,
+				2681DBF11BCAE924006F786E /* LogInViewController.h */,
+				2681DBF21BCAE924006F786E /* LogInViewController.m */,
+				2681DBFB1BCC57FF006F786E /* Classes */,
+			);
+			name = ViewControllers;
+			sourceTree = "<group>";
+		};
+		2681DBFB1BCC57FF006F786E /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				26A8398A1B10CC650008A0C9 /* Wardrobe.h */,
+				26A8398B1B10CC650008A0C9 /* Wardrobe.m */,
+				2681DB951BC02587006F786E /* Color.h */,
+				2681DB961BC02587006F786E /* Color.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
 		26A839581B10C6460008A0C9 = {
 			isa = PBXGroup;
 			children = (
+				2681DBEF1BCAE771006F786E /* libsqlite3.0.tbd */,
+				2681DBED1BCAE701006F786E /* Security.framework */,
+				2681DBEB1BCAE6F5006F786E /* StoreKit.framework */,
+				2681DBE91BCAE6F0006F786E /* SystemConfiguration.framework */,
+				2681DBE71BCAE6E2006F786E /* QuartzCore.framework */,
+				2681DBE31BCAE6CF006F786E /* CoreGraphics.framework */,
+				2681DBE41BCAE6CF006F786E /* CoreLocation.framework */,
+				2681DBE11BCAE6C5006F786E /* CFNetwork.framework */,
+				2681DBDF1BCAE6B9006F786E /* AudioToolbox.framework */,
+				2681DBDB1BCAE656006F786E /* Bolts.framework */,
+				2681DBDC1BCAE656006F786E /* Parse.framework */,
 				26A839631B10C6460008A0C9 /* EmperorsClothes */,
 				26A8397D1B10C6470008A0C9 /* EmperorsClothesTests */,
 				26A839621B10C6460008A0C9 /* Products */,
@@ -89,14 +174,9 @@
 			children = (
 				26A839681B10C6460008A0C9 /* AppDelegate.h */,
 				26A839691B10C6460008A0C9 /* AppDelegate.m */,
-				26A8396B1B10C6460008A0C9 /* ViewController.h */,
-				26A8396C1B10C6460008A0C9 /* ViewController.m */,
-				26A8398A1B10CC650008A0C9 /* Wardrobe.h */,
-				26A8398B1B10CC650008A0C9 /* Wardrobe.m */,
 				26A8396E1B10C6460008A0C9 /* Main.storyboard */,
+				2681DBFA1BCC57E5006F786E /* ViewControllers */,
 				26A839711B10C6460008A0C9 /* Images.xcassets */,
-				2681DB951BC02587006F786E /* Color.h */,
-				2681DB961BC02587006F786E /* Color.m */,
 				26A839731B10C6460008A0C9 /* LaunchScreen.xib */,
 				26A839641B10C6460008A0C9 /* Supporting Files */,
 			);
@@ -229,11 +309,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2681DBF91BCC57C5006F786E /* WardrobeViewController.m in Sources */,
 				26A8396D1B10C6460008A0C9 /* ViewController.m in Sources */,
 				26A8396A1B10C6460008A0C9 /* AppDelegate.m in Sources */,
+				2681DBF31BCAE924006F786E /* LogInViewController.m in Sources */,
 				2681DB971BC02587006F786E /* Color.m in Sources */,
+				2667F43C1BCDF89E0092E9E0 /* RootViewController.m in Sources */,
 				26A839671B10C6460008A0C9 /* main.m in Sources */,
 				26A8398C1B10CC650008A0C9 /* Wardrobe.m in Sources */,
+				2681DBF61BCB2087006F786E /* SignUpVC.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -360,6 +444,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = EmperorsClothes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Sevy.$(PRODUCT_NAME:rfc1034identifier)";
@@ -371,6 +459,10 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = EmperorsClothes/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "Sevy.$(PRODUCT_NAME:rfc1034identifier)";

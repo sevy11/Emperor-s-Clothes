@@ -9,34 +9,34 @@
 #import "ViewController.h"
 #import "Wardrobe.h"
 #import "Color.h"
+#import <Parse/Parse.h>
+#import "LogInViewController.h"
 
 @interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
-@property (strong, nonatomic) IBOutlet UIView *superView;
-@property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
-
+//Buttons
 @property (weak, nonatomic) IBOutlet UIButton *femaleButton;
 @property (weak, nonatomic) IBOutlet UIButton *maleButton;
+@property (weak, nonatomic) IBOutlet UIButton *saveButton;
+//ImageViews
 @property (weak, nonatomic) IBOutlet UIImageView *placeholderImage;
-
-@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
+@property (weak, nonatomic) IBOutlet UIImageView *selectedImage;
+@property (weak, nonatomic) IBOutlet UIImageView *upperleftImage;
+@property (weak, nonatomic) IBOutlet UIImageView *lowerLeftImage;
+@property (weak, nonatomic) IBOutlet UIImageView *upperRightImage;
+@property (weak, nonatomic) IBOutlet UIImageView *lowerRightImage;
 @property (weak, nonatomic) IBOutlet UITapGestureRecognizer *upperLeftTapGesture;
 @property (weak, nonatomic) IBOutlet UITapGestureRecognizer *lowerLeftTapGesture;
 @property (weak, nonatomic) IBOutlet UITapGestureRecognizer *upperRightGesture;
 @property (weak, nonatomic) IBOutlet UITapGestureRecognizer *lowerRightTapGesture;
 
 @property (weak, nonatomic) IBOutlet UILabel *instructionsLabel;
-@property (weak, nonatomic) IBOutlet UITextField *textField;
+@property (weak, nonatomic) IBOutlet UILabel *ratingLabel;
 
+@property (weak, nonatomic) IBOutlet UITextField *textField;
 @property (weak, nonatomic) IBOutlet UISegmentedControl *colorSegmented;
 @property (weak, nonatomic) IBOutlet UITableView *tableView;
-
-@property (weak, nonatomic) IBOutlet UIImageView *upperleftImage;
-@property (weak, nonatomic) IBOutlet UIImageView *lowerLeftImage;
-@property (weak, nonatomic) IBOutlet UIImageView *upperRightImage;
-@property (weak, nonatomic) IBOutlet UIImageView *lowerRightImage;
-
 @property (weak, nonatomic) IBOutlet UISlider *slider;
-
+//global props
 @property NSMutableArray *blackColor;
 @property NSMutableArray *blackColorCol;
 @property NSMutableArray *blueColor;
@@ -52,8 +52,14 @@
 
 @property NSMutableArray *tableData;
 @property NSMutableArray *tableColorWheel;
+@property int first;
+@property int currentWadrobeItem;
+@property NSString *second;
+@property NSString *third;
+@property NSString *forth;
+@property NSString *fifth;
+@property NSString *sixth;
 
-@property NSMutableArray *selectionArray;
 @property BOOL male;
 
 @end
@@ -63,16 +69,16 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
 
-//    self.scrollView.contentSize = self.view;
-    self.tableColorWheel = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", @"", @"", nil];
-    self.tableData = [NSMutableArray arrayWithObjects:@"", @"", @"", @"", @"", @"", @"", @"", @"", nil];
-
-
+    //self.scrollView.scrollEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-    self.tableView.contentInset = UIEdgeInsetsZero;
-    self.male = NO;
+    self.tableView.delegate = self;
+    self.navigationItem.title = @"Enter Clothing Item";
+
+    self.saveButton.hidden = YES;
+
     //m
     self.maleButton.layer.cornerRadius = 12;
+    self.maleButton.imageView.image = [UIImage imageNamed:@"Z3JHK-2"];
     self.maleButton.clipsToBounds = YES;
     self.maleButton.backgroundColor = [UIColor colorWithRed:11/255.0 green:83/255.0 blue:154/255.0 alpha:1.0];
     //f
@@ -80,27 +86,80 @@
     self.femaleButton.clipsToBounds = YES;
     self.femaleButton.backgroundColor = [UIColor colorWithRed:201/255.0 green:52/255.0 blue:116/255.0 alpha:1.0];
 
-    self.tableView.delegate = self;
-    self.navigationItem.title = @"Enter Clothing Item";
-
-
-
     //color segmented properties
+    self.colorSegmented.selectedSegmentIndex = 2;
     NSArray *segmentedArray = [self.colorSegmented subviews];
-    [[segmentedArray objectAtIndex:5] setTintColor:[UIColor blackColor]];
-    [[segmentedArray objectAtIndex:4] setTintColor:[UIColor blueColor]];
-    [[segmentedArray objectAtIndex:3] setTintColor:[Color seashell]];
-    [[segmentedArray objectAtIndex:2] setTintColor:[Color salmon]];
-    [[segmentedArray objectAtIndex:1] setTintColor:[Color limeGreen]];
     [[segmentedArray objectAtIndex:0] setTintColor:[UIColor orangeColor]];
+    [[segmentedArray objectAtIndex:1] setTintColor:[UIColor greenColor]];
+    [[segmentedArray objectAtIndex:2] setTintColor:[UIColor redColor]];
+    [[segmentedArray objectAtIndex:3] setTintColor:[Color seashell]];
+    [[segmentedArray objectAtIndex:4] setTintColor:[UIColor blackColor]];
+    [[segmentedArray objectAtIndex:5] setTintColor:[UIColor blueColor]];
 
     //init tapGestures on images
     [self.view setUserInteractionEnabled:YES];
 
-    self.upperleftImage.userInteractionEnabled = YES;
-    self.upperRightImage.userInteractionEnabled = YES;
-    self.lowerLeftImage.userInteractionEnabled = YES;
-    self.lowerRightImage.userInteractionEnabled = YES;
+    self.upperleftImage.userInteractionEnabled = NO;
+    self.upperRightImage.userInteractionEnabled = NO;
+    self.lowerLeftImage.userInteractionEnabled = NO;
+    self.lowerRightImage.userInteractionEnabled = NO;
+
+    //initalize colors -- 1-- Darks
+    self.blackColor = [NSMutableArray arrayWithObjects:@"Black", @"Gray", @"Light Gray", @"Slate Gray", @"Maroon", @"Tan", @"Sienna", nil];
+    self.blackColorCol = [NSMutableArray arrayWithObjects:[UIColor blackColor], [Color gray], [Color lightGray], [Color slateGray], [Color maroon], [Color tan], [Color sienna], nil];
+    //2-- blues
+    self.blueColorCol = [NSMutableArray arrayWithObjects:[Color midnightBlue], [Color navy], [Color slateBlue], [Color dodgerBlue], [Color lightSkyBlue], [Color turquoise], [Color cyan], nil];
+    self.blueColor = [NSMutableArray arrayWithObjects:@"Mid-Night Blue", @"Navy", @"Slate Blue", @"Dodger Blue", @"Sky Blue", @"Turquoise",@"Cyan", nil];
+    //3-- whites
+    self.whiteColorCol = [NSMutableArray arrayWithObjects: [UIColor whiteColor], [Color snow], [Color ghostWhite], [Color ivory], nil];
+    self.whiteColor = [NSMutableArray arrayWithObjects: @"Pure White", @"Snow", @"Ghost White", @"Ivory", nil];
+    //4-- red
+    self.redColorCol = [NSMutableArray arrayWithObjects:[Color salmon], [Color coral], [UIColor redColor], [Color hotPink], [Color blueViolet], nil];
+    self.redColor = [NSMutableArray arrayWithObjects:@"Salmon", @"Coral", @"Red", @"Hot Pink", @"Blue Violet",nil];
+    //5-- green
+    self.greenColor = [NSMutableArray arrayWithObjects:@"Aquamarine", @"Dark Green", @"Sea Green", @"Honeydew", @"Lawn Green", @"Chartreuse", @"Khaki", nil];
+    self.greenColorCol = [NSMutableArray arrayWithObjects:[Color aquamarine], [Color darkGreen], [Color seaGreen], [Color honeydew], [Color lawnGreen], [Color chartreuse], [Color khaki], nil];
+    //6-- yellowOrange
+    self.yellowOrangeColorCol = [NSMutableArray arrayWithObjects:[UIColor yellowColor], [Color gold], [Color lightGoldenrodYellow], [Color darkOrange], [Color orangeRed], nil];
+    self.yellowOrangeColor = [NSMutableArray arrayWithObjects:@"Yellow", @"Gold", @"Goldenrod Yellow", @"Dark Orange", @"Orange Red", nil];
+
+    self.tableData = self.whiteColor;
+    self.tableColorWheel = self.whiteColorCol;
+
+    [self.tableView reloadData];
+
+    [self.textField addTarget:self action:@selector(onTextFieldReturn:) forControlEvents:UIControlEventEditingDidEndOnExit];
+
+    //get the current wardrobe items and assign new item the next sequential number
+    PFQuery *query = [PFQuery queryWithClassName:@"Wardrobe"];
+   // [query whereKey:@"senderId" equalTo:[[PFUser currentUser] objectId]];
+
+    [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
+
+        PFObject *localObbie = [objects firstObject];
+        NSString *numberal = [localObbie objectForKey:@"number"];
+        if (numberal) {
+           // NSLog(@"number exists and its: %@", numberal);
+
+            int localInt = [numberal intValue];
+            self.first = localInt + 1;
+        } else{
+            NSLog(@"no number field");
+            self.first = 1;
+        }
+    }];
+
+
+}
+
+
+#pragma mark 1 -- male or female button
+
+- (IBAction)onMaleButtonTapped:(UIButton *)sender {
+    self.upperleftImage.image = [UIImage imageNamed:@"hoodieM"];
+    self.upperRightImage.image = [UIImage imageNamed:@"tshirt"];
+    self.lowerLeftImage.image = [UIImage imageNamed:@"mensSweater"];
+    self.lowerRightImage.image = [UIImage imageNamed:@"mensButtonD"];
 
     UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
     tapGesture1.numberOfTapsRequired = 1;
@@ -126,50 +185,14 @@
     [self.lowerRightImage addGestureRecognizer:tapGesture4];
     tapGesture4.delegate = self;
 
+    self.upperleftImage.userInteractionEnabled = YES;
+    self.upperRightImage.userInteractionEnabled = YES;
+    self.lowerLeftImage.userInteractionEnabled = YES;
+    self.lowerRightImage.userInteractionEnabled = YES;
 
-    //initalize colors -- 1-- Darks
-    self.blackColor = [NSMutableArray arrayWithObjects:@"Black", @"Gray", @"Light Gray", @"Slate Gray", @"Maroon", @"Tan", @"Sienna", nil];
-    self.blackColorCol = [NSMutableArray arrayWithObjects:[UIColor blackColor], [Color gray], [Color lightGray], [Color slateGray], [Color maroon],[Color tan], [Color sienna], nil];
-    //2-- blues
-    self.blueColorCol = [NSMutableArray arrayWithObjects:[Color midnightBlue], [Color navy], [Color slateBlue], [Color dodgerBlue], [Color lightSkyBlue], [Color turquoise], [Color cyan], nil];
-    self.blueColor = [NSMutableArray arrayWithObjects:@"Mid-Night Blue", @"Navy", @"Slate Blue", @"Dodger Blue", @"Sky Blue", @"Turquoise",@"Cyan", nil];
-
-    //3-- whites
-    self.whiteColorCol = [NSMutableArray arrayWithObjects: [UIColor whiteColor], [Color snow], [Color ghostWhite], [Color ivory], nil];
-    self.whiteColor = [NSMutableArray arrayWithObjects: @"Pure White", @"Snow", @"Ghost White", @"Ivory", nil];
-
-    //4-- red
-    self.redColorCol = [NSMutableArray arrayWithObjects:[Color salmon], [Color coral], [UIColor redColor], [Color hotPink], [Color blueViolet], nil];
-    self.redColor = [NSMutableArray arrayWithObjects:@"Salmon", @"Coral", @"Red", @"Hot Pink", @"Blue Violet",nil];
-
-    //5-- green
-    self.greenColor = [NSMutableArray arrayWithObjects:@"Aquamarine", @"Dark Green", @"Sea Green", @"Honeydew", @"Lawn Green", @"Chartreuse", @"Khaki", nil];
-    self.greenColorCol = [NSMutableArray arrayWithObjects:[Color aquamarine], [Color darkGreen], [Color seaGreen], [Color honeydew], [Color lawnGreen], [Color chartreuse], [Color khaki], nil];
-
-    //6-- yellowOrange
-    self.yellowOrangeColorCol = [NSMutableArray arrayWithObjects:[UIColor yellowColor], [Color gold], [Color lightGoldenrodYellow], [Color darkOrange], [Color orangeRed], nil];
-    self.yellowOrangeColor = [NSMutableArray arrayWithObjects:@"Yellow", @"Gold", @"Goldenrod Yellow", @"Dark Orange", @"Orange Red", nil];
-
-    self.selectionArray = [NSMutableArray new];
-
-    [self.textField addTarget:self action:@selector(onTextFieldReturn:) forControlEvents:UIControlEventEditingDidEndOnExit];
-
-}
-
-#pragma mark -- male or female button
-- (IBAction)onMaleButtonTapped:(UIButton *)sender {
-    self.upperleftImage.image = [UIImage imageNamed:@"hoodie"];
-    self.upperRightImage.image = [UIImage imageNamed:@"longSleevedT"];
-    self.lowerLeftImage.image = [UIImage imageNamed:@"hoodie"];
-    self.lowerRightImage.image = [UIImage imageNamed:@"sweaterMens"];
-
-    Wardrobe *war = [Wardrobe new];
-    war.sex = @"M";
-    [self.selectionArray addObject:war];
-    NSLog(@"%@", war.sex);
+    self.second = @"M";
     self.male = YES;
 
-//    self.navigationItem.title = @"Choose Your Top";
     self.instructionsLabel.text = @"Choose your top";
     [self.maleButton removeFromSuperview];
     [self.femaleButton removeFromSuperview];
@@ -177,180 +200,215 @@
 }
 
 - (IBAction)onFemaleButtonTapped:(UIButton *)sender {
-    self.upperleftImage.image = [UIImage imageNamed:@"hoodie"];
-    self.upperRightImage.image = [UIImage imageNamed:@"buttonDownWomens"];
-    self.lowerLeftImage.image = [UIImage imageNamed:@"blouse"];
-    self.lowerRightImage.image = [UIImage imageNamed:@"blouse"];
+    self.upperleftImage.image = [UIImage imageNamed:@"blouse"];
+    self.upperRightImage.image = [UIImage imageNamed:@"womensButtonD"];
+    self.lowerLeftImage.image = [UIImage imageNamed:@"womensSweater"];
+    self.lowerRightImage.image = [UIImage imageNamed:@"tshirt"];
 
-    Wardrobe *war = [Wardrobe new];
-    war.sex = @"F";
-    [self.selectionArray addObject:war];
-    NSLog(@"%@", war.sex);
-    self.male = NO;
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
+    tapGesture1.numberOfTapsRequired = 1;
+    [tapGesture1 setDelegate:self];
+    [self.upperleftImage addGestureRecognizer:tapGesture1];
+    tapGesture1.delegate = self;
 
-//    self.navigationItem.title = @"Choose Your Top";
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
+    tapGesture2.numberOfTapsRequired = 1;
+    [tapGesture2 setDelegate:self];
+    [self.lowerLeftImage addGestureRecognizer:tapGesture2];
+    tapGesture2.delegate = self;
+
+    UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
+    tapGesture3.numberOfTapsRequired = 1;
+    [tapGesture3 setDelegate:self];
+    [self.upperRightImage addGestureRecognizer:tapGesture3];
+    tapGesture3.delegate = self;
+
+    UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
+    tapGesture4.numberOfTapsRequired = 1;
+    [tapGesture4 setDelegate:self];
+    [self.lowerRightImage addGestureRecognizer:tapGesture4];
+    tapGesture4.delegate = self;
+
+    self.upperleftImage.userInteractionEnabled = YES;
+    self.upperRightImage.userInteractionEnabled = YES;
+    self.lowerLeftImage.userInteractionEnabled = YES;
+    self.lowerRightImage.userInteractionEnabled = YES;
+
     self.instructionsLabel.text = @"Choose your top";
     [self.femaleButton removeFromSuperview];
     [self.maleButton removeFromSuperview];
+
+    self.second = @"F";
+    self.male = NO;
+
 }
 
+#pragma mark 2 -- choose clothing top
 //1
 - (IBAction)upperleftGesture:(UITapGestureRecognizer *)sender {
-    Wardrobe *war = [Wardrobe new];
-
     if (self.male) {
-    war.topItem = @"Hoodie";
-    [self.selectionArray addObject:war];
-    NSLog(@"%@", war.topItem);
 
-        [self.upperRightImage removeFromSuperview];
-        [self.lowerLeftImage removeFromSuperview];
-        [self.lowerRightImage removeFromSuperview];
-        [self.upperleftImage removeFromSuperview];
+        self.third = @"Hoodie";
 
-        self.instructionsLabel.text = @"Pick hoodie color ";
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+
+        self.instructionsLabel.text = @"Choose hoodie color ";
 
         NSTimeInterval seconds = 1.0;
         [UIView animateWithDuration:seconds animations:^{
-            self.selectedImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
+            self.selectedImage.image = [UIImage imageNamed:@"hoodieM"];
         }];
 
     } else {
+        self.third = @"Blouse";
 
-        war.topItem = @"women's hoodie";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
 
-        self.instructionsLabel.text = @"Pick hoodie color ";
-
-        [self.upperRightImage removeFromSuperview];
-        [self.lowerLeftImage removeFromSuperview];
-        [self.lowerRightImage removeFromSuperview];
-        [self.upperleftImage removeFromSuperview];
-
+        self.instructionsLabel.text = @"Choose blouse color";
         NSTimeInterval seconds = 1.0;
         [UIView animateWithDuration:seconds animations:^{
-            self.selectedImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
+            self.selectedImage.image = [UIImage imageNamed:@"blouse"];
         }];
     }
 }
 
 //2
 - (IBAction)lowerLeftGesture:(UITapGestureRecognizer *)sender {
-    Wardrobe *war = [Wardrobe new];
     if (self.male) {
-    //    war.sex = @"M";
-        war.topItem = @"lower Hoodie";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
-        self.lowerLeftImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
-       // self.navigationItem.title = @"Pick Hoodie Color";
-        self.instructionsLabel.text = @"Pick hoodie color ";
-        [self.upperRightImage removeFromSuperview];
-        [self.upperleftImage removeFromSuperview];
-        [self.lowerRightImage removeFromSuperview];
+        self.third = @"Sweater";
+
+        //change view
+        self.instructionsLabel.text = @"Choose sweater color";
+
+        self.upperRightImage.hidden = YES;
+        self.upperleftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+
+        NSTimeInterval seconds = 1.0;
+        [UIView animateWithDuration:seconds animations:^{
+            self.selectedImage.image = [UIImage imageNamed:@"mensSweater"];
+        }];
+
     } else {
-      //  war.sex = @"F";
-        war.topItem = @"left blouse";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
-        self.lowerLeftImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
-     //   self.navigationItem.title = @"Pick Hoodie Color";
-        self.instructionsLabel.text = @"Pick hoodie color ";
-        [self.upperRightImage removeFromSuperview];
-        [self.upperleftImage removeFromSuperview];
-        [self.lowerRightImage removeFromSuperview];
+
+        self.third = @"Sweater";
+
+        //change view
+        self.instructionsLabel.text = @"Choose sweater color";
+
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+
+        NSTimeInterval seconds = 1.0;
+        [UIView animateWithDuration:seconds animations:^{
+            self.selectedImage.image = [UIImage imageNamed:@"womensSweater"];
+        }];
     }
 }
 //3
 - (IBAction)upperRightGest:(UITapGestureRecognizer *)sender {
-    Wardrobe *war = [Wardrobe new];
     if (self.male) {
-        //war.sex = @"M";
-        war.topItem = @"long sleeved T";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
-        self.upperRightImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
-//        self.navigationItem.title = @"Pick T Color";
-        self.instructionsLabel.text = @"Pick ling sleeved T color ";
-        [self.upperleftImage removeFromSuperview];
-        [self.lowerLeftImage removeFromSuperview];
-        [self.lowerRightImage removeFromSuperview];
+
+        self.third = @"T-Shirt";
+
+        //change view
+        self.instructionsLabel.text = @"Choose Tee color";
+
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+
+        NSTimeInterval seconds = 1.0;
+        [UIView animateWithDuration:seconds animations:^{
+            self.selectedImage.image = [UIImage imageNamed:@"tshirt"];
+        }];
+
     } else {
-        //war.sex = @"F";
-        war.topItem = @"women's button down";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
-        self.upperRightImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
-        //self.navigationItem.title = @"Pick Button Down Color";
-        self.instructionsLabel.text = @"Pick button down color ";
-        [self.upperleftImage removeFromSuperview];
-        [self.lowerLeftImage removeFromSuperview];
-        [self.lowerRightImage removeFromSuperview];
+        self.third = @"Button down";
+
+        //change view
+        self.instructionsLabel.text = @"Choose button-down color";
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+
+        NSTimeInterval seconds = 1.0;
+        [UIView animateWithDuration:seconds animations:^{
+            self.selectedImage.image = [UIImage imageNamed:@"womensButtonD"];
+        }];
     }
 }
-
 //4
 - (IBAction)lowerRight:(UITapGestureRecognizer *)sender {
-    Wardrobe *war = [Wardrobe new];
     if (self.male) {
-        //war.sex = @"M";
-        war.topItem = @"Sweater";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
-        self.lowerRightImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
-     //   self.navigationItem.title = @"Pick Sweater Color";
-        self.instructionsLabel.text = @"Pick sweater color ";
-        [self.upperRightImage removeFromSuperview];
-        [self.lowerLeftImage removeFromSuperview];
-        [self.upperleftImage removeFromSuperview];
+
+        self.third = @"Button down";
+
+        //change view
+        self.instructionsLabel.text = @"Choose button down color";
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+
+        NSTimeInterval seconds = 1.0;
+        [UIView animateWithDuration:seconds animations:^{
+            self.selectedImage.image = [UIImage imageNamed:@"mensButtonD"];
+        }];
     } else if(!self.male){
-        //war.sex = @"F";
-        war.topItem = @"right side blouse";
-        [self.selectionArray addObject:war];
-        NSLog(@"%@", war.topItem);
-        self.lowerRightImage.image = [UIImage imageNamed:@"Check_mark_23x20_02.svg"];
-      //  self.navigationItem.title = @"Pick Blouse Color";
-        self.instructionsLabel.text = @"Pick blouse color ";
-        [self.upperRightImage removeFromSuperview];
-        [self.lowerLeftImage removeFromSuperview];
-        [self.upperleftImage removeFromSuperview];
-    }
+        self.third = @"T-Shirt";
+
+        //change view
+        self.instructionsLabel.text = @"Choose Tee color ";
+        self.upperleftImage.hidden = YES;
+        self.upperRightImage.hidden = YES;
+        self.lowerLeftImage.hidden = YES;
+        self.lowerRightImage.hidden = YES;
+
+        NSTimeInterval seconds = 1.0;
+        [UIView animateWithDuration:seconds animations:^{
+            self.selectedImage.image = [UIImage imageNamed:@"tshirt"];
+        }];    }
 }
 
-#pragma mark -- color change Segmented Controller
+#pragma mark 3 -- color change Segmented Controller
 
 - (IBAction)onColorChanged:(UISegmentedControl *)sender {
     if (sender.selectedSegmentIndex == 0) {
         self.tableData = self.blackColor;
+        self.tableColorWheel = self.blackColorCol;
     } else if (sender.selectedSegmentIndex == 1){
         self.tableData = self.blueColor;
+        self.tableColorWheel = self.blueColorCol;
     } else if (sender.selectedSegmentIndex == 2){
         self.tableData = self.whiteColor;
+        self.tableColorWheel = self.whiteColorCol;
     } else if(sender.selectedSegmentIndex == 3){
         self.tableData = self.redColor;
+        self.tableColorWheel = self.redColorCol;
     } else if (sender.selectedSegmentIndex == 4){
         self.tableData = self.greenColor;
+        self.tableColorWheel = self.greenColorCol;
     } else if(sender.selectedSegmentIndex == 5){
         self.tableData = self.yellowOrangeColor;
+        self.tableColorWheel = self.yellowOrangeColorCol;
     }
     [self.tableView reloadData];
 }
 
-#pragma mark -- TextField
 
-- (IBAction)onTextFieldReturn:(UITextField *)sender {
-
-    Wardrobe *war = [Wardrobe new];
-    war.itemDetail = self.textField.text;
-    [self.selectionArray addObject:war];
-
-    NSLog(@"%@", war.itemDetail);
-   // [sender resignFirstResponder];
-
-}
-
-
+#pragma mark -- TableView Delegates
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
     return 1;
 }
@@ -369,144 +427,214 @@
 }
 
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (self.colorSegmented.selectedSegmentIndex == 0) {
-    cell.detailTextLabel.backgroundColor = [self.blackColorCol objectAtIndex:indexPath.row];
-    } else if (self.colorSegmented.selectedSegmentIndex == 1){
-        cell.detailTextLabel.backgroundColor = [self.blueColorCol objectAtIndex:indexPath.row];
-    } else if (self.colorSegmented.selectedSegmentIndex == 2){
-        cell.detailTextLabel.backgroundColor = [self.whiteColorCol objectAtIndex:indexPath.row];
-    }   else if (self.colorSegmented.selectedSegmentIndex == 3){
-        cell.detailTextLabel.backgroundColor = [self.redColorCol objectAtIndex:indexPath.row];
-    }else if (self.colorSegmented.selectedSegmentIndex == 4){
-        cell.detailTextLabel.backgroundColor = [self.greenColorCol objectAtIndex:indexPath.row];
-    }else if (self.colorSegmented.selectedSegmentIndex == 5){
-        cell.detailTextLabel.backgroundColor = [self.yellowOrangeColorCol objectAtIndex:indexPath.row];
-    }
+
+    cell.detailTextLabel.backgroundColor = [self.tableColorWheel objectAtIndex:indexPath.row];
+
 }
 
+#pragma mark 4 -- select color
 
-//select Row
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
-    Wardrobe *ward = [Wardrobe new];
+
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
 
     cell.textLabel.textColor = [UIColor blueColor];
-    ward.colorString = cell.textLabel.text;
-
-    NSLog(@"from cell: %@", ward.colorString);
-    self.instructionsLabel.text = @"Add description or rate clothing item with Slider";
-
-    [self.selectionArray addObject:ward];
+    self.instructionsLabel.text = @"Add description and rate clothing item";
+    self.saveButton.hidden = NO;
+    self.forth = cell.textLabel.text;
 }
+
+#pragma mark 5 -- select detail
+
+- (IBAction)onTextFieldReturn:(UITextField *)sender {
+    NSLog(@"%@", self.textField.text);
+    self.fifth = self.textField.text;
+}
+
+#pragma mark 6 -- select rating
 
 - (IBAction)touchUpInsideSlider:(UISlider *)sender {
+
     int progress = (sender.value);
     NSString *sliderString = [NSString stringWithFormat:@"%d", progress];
-    Wardrobe *ward = [Wardrobe new];
-    ward.rating = sliderString;
-    self.ratingLabel.text = ward.rating;
-    [self.selectionArray addObject:ward];
-
-    NSLog(@"%@", ward.rating);
+    self.sixth = sliderString;
+    NSLog(@"%@", sliderString);
 
 }
 
-- (IBAction)onAddButtonTapped:(UIBarButtonItem *)sender {
-    // NSLog(@"%lu", (unsigned long)[self.selectionArray count]);
+#pragma mark 7 -- Add item to Wardrobe
 
-    for (Wardrobe *war in self.selectionArray) {
+- (IBAction)onAddButtonTaped:(UIButton *)sender {
+    //save item
+    NSLog(@"selection: %d, %@, %@, %@, %@, %@ saved", self.first, self.second, self.third, self.forth, self.fifth, self.sixth);
 
-        NSLog(@"%@,%@, %@, %@, %@", war.sex, war.topItem, war.colorString, war.itemDetail, war.rating);
-        }
+    NSString *firstString = [NSString stringWithFormat:@"%d", self.first];
+    PFObject *wardrobe = [PFObject objectWithClassName:@"Wardrobe"];
+    wardrobe[@"number"] = firstString;
+    if (self.second) {
+        wardrobe[@"sex"] = self.second;
+    } else{
+        self.second = @"";
     }
+    if (self.third) {
+        wardrobe[@"topItem"] = self.third;
+    } else{
+        self.third = @"";
+        wardrobe[@"topItem"] = self.third;
+    }
+    if (self.forth) {
+        wardrobe[@"color"] = self.forth;
+    } else{
+        self.forth = @"";
+        wardrobe[@"color"] = self.forth;
+    }
+    if (self.fifth) {
+        wardrobe[@"itemDetail"] = self.fifth;
+    } else{
+        self.fifth = @"";
+        wardrobe[@"itemDetail"] = self.fifth;
+    }
+    if (self.sixth) {
+        wardrobe[@"rating"] = self.sixth;
+    }else{
+        self.sixth = @"";
+        wardrobe[@"rating"] = self.sixth;
+    }
+    [wardrobe setObject:[[PFUser currentUser] objectId] forKey:@"senderId"];
+
+    [wardrobe saveInBackground];
+
+
+    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Saved!" message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+
+    UIAlertAction *cancelAction = [UIAlertAction actionWithTitle:@"Cancel" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"canceled");
+    }];
+    UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"Add Another Item" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        self.saveButton.hidden = YES;
+        self.selectedImage.hidden = YES;
+        //add one to the number and set everythign back to no value
+        self.first = self.first + 1;
+        //second stays the same (sex)
+        self.third = @"";//topItem
+        self.forth = @"";//color
+        self.fifth = @"";//detail
+        self.sixth = @"";//rating
+
+        NSLog(@"reset all wardrobe properties: %i, top: %@, color: %@, details: %@, rating: %@", self.first, self.third, self.forth, self.fifth, self.sixth);
+
+        if (self.male == YES) {
+            //bring male options back
+            self.upperleftImage.hidden = NO;
+            self.upperRightImage.hidden = NO;
+            self.lowerLeftImage.hidden = NO;
+            self.lowerRightImage.hidden = NO;
+
+            self.upperleftImage.image = [UIImage imageNamed:@"hoodieM"];
+            self.upperRightImage.image = [UIImage imageNamed:@"tshirt"];
+            self.lowerLeftImage.image = [UIImage imageNamed:@"mensSweater"];
+            self.lowerRightImage.image = [UIImage imageNamed:@"mensButtonD"];
+
+            UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
+            tapGesture1.numberOfTapsRequired = 1;
+            [tapGesture1 setDelegate:self];
+            [self.upperleftImage addGestureRecognizer:tapGesture1];
+            tapGesture1.delegate = self;
+
+            UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
+            tapGesture2.numberOfTapsRequired = 1;
+            [tapGesture2 setDelegate:self];
+            [self.lowerLeftImage addGestureRecognizer:tapGesture2];
+            tapGesture2.delegate = self;
+
+            UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
+            tapGesture3.numberOfTapsRequired = 1;
+            [tapGesture3 setDelegate:self];
+            [self.upperRightImage addGestureRecognizer:tapGesture3];
+            tapGesture3.delegate = self;
+
+            UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
+            tapGesture4.numberOfTapsRequired = 1;
+            [tapGesture4 setDelegate:self];
+            [self.lowerRightImage addGestureRecognizer:tapGesture4];
+            tapGesture4.delegate = self;
+
+            self.upperleftImage.userInteractionEnabled = YES;
+            self.upperRightImage.userInteractionEnabled = YES;
+            self.lowerLeftImage.userInteractionEnabled = YES;
+            self.lowerRightImage.userInteractionEnabled = YES;
+
+        } else {
+            self.upperleftImage.hidden = NO;
+            self.upperRightImage.hidden = NO;
+            self.lowerLeftImage.hidden = NO;
+            self.lowerRightImage.hidden = NO;
+
+            self.upperleftImage.image = [UIImage imageNamed:@"blouse"];
+            self.upperRightImage.image = [UIImage imageNamed:@"womensButtonD"];
+            self.lowerLeftImage.image = [UIImage imageNamed:@"womensSweater"];
+            self.lowerRightImage.image = [UIImage imageNamed:@"tshirt"];
+
+            UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
+            tapGesture1.numberOfTapsRequired = 1;
+            [tapGesture1 setDelegate:self];
+            [self.upperleftImage addGestureRecognizer:tapGesture1];
+            tapGesture1.delegate = self;
+
+            UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
+            tapGesture2.numberOfTapsRequired = 1;
+            [tapGesture2 setDelegate:self];
+            [self.lowerLeftImage addGestureRecognizer:tapGesture2];
+            tapGesture2.delegate = self;
+
+            UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
+            tapGesture3.numberOfTapsRequired = 1;
+            [tapGesture3 setDelegate:self];
+            [self.upperRightImage addGestureRecognizer:tapGesture3];
+            tapGesture3.delegate = self;
+
+            UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
+            tapGesture4.numberOfTapsRequired = 1;
+            [tapGesture4 setDelegate:self];
+            [self.lowerRightImage addGestureRecognizer:tapGesture4];
+            tapGesture4.delegate = self;
+
+            self.upperleftImage.userInteractionEnabled = YES;
+            self.upperRightImage.userInteractionEnabled = YES;
+            self.lowerLeftImage.userInteractionEnabled = YES;
+            self.lowerRightImage.userInteractionEnabled = YES;
+        }
+    }];
+
+    UIAlertAction *wardrobeAction = [UIAlertAction actionWithTitle:@"See Your Wardrobe" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
+        [self performSegueWithIdentifier:@"Wardrobe" sender:self];
+    }];
+
+    UIAlertAction *takePicture = [UIAlertAction actionWithTitle:@"Add Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        NSLog(@"take a picture");
 
 
 
 
+    }];
+
+    [alert addAction:takePicture];
+    [alert addAction:cancelAction];
+    [alert addAction:continueAction];
+    [alert addAction:wardrobeAction];
+
+    [self presentViewController:alert animated:YES completion:nil];
+
+}
 
 
-//- (void)performCitySearch:(NSString *)incomingString  {
-//
-//    NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"http://api.openweathermap.org/data/2.5/forecast/daily?q=%@&cnt=10&units=imperial&mode=json",incomingString]];
-//
-//    NSURLRequest *request = [NSURLRequest requestWithURL:url];
-//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//
-//        if (!connectionError) {
-//            NSDictionary *weatherDict = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:&connectionError];
-//
-//            NSDictionary *list = weatherDict[@"list"];
-//
-//            for (NSDictionary *item in list) {
-//
-//                NSDictionary *temp = item[@"temp"];
-//                NSDictionary *morn = temp[@"morn"];
-//                NSDictionary *day = temp[@"day"];
-//                NSDictionary *eve = temp[@"eve"];
-//                NSDictionary *night = temp[@"night"];
-//
-//                NSLog(@"%@, %@, %@, %@", morn, day, eve, night);
-//            }
-//            
-//        }
-//    }];
-//    
-//}
+#pragma mark 8 -- logout
+- (IBAction)onLogoutTapped:(UIBarButtonItem *)sender {
 
+    [PFUser logOut];
+    [self performSegueWithIdentifier:@"Logout" sender:self];
+}
 
-
-
-//-(NSInteger)numberOfComponentsInPickerView:(UIPickerView *)pickerView{
-//    return 2;
-//}
-//
-//-(NSInteger)pickerView:(UIPickerView *)pickerView numberOfRowsInComponent:(NSInteger)component{
-//    return self.tops.count;
-//}
-//
-//-(NSString *)pickerView:(UIPickerView *)pickerView titleForRow:(NSInteger)row forComponent:(NSInteger)component{
-//
-//     return self.wardrobeChoice[component][row];
-//
-////    [pickerView selectedRowInComponent:0];
-//
-//}
-//
-//
-//-(void)pickerView:(UIPickerView *)pickerView didSelectRow:(NSInteger)row inComponent:(NSInteger)component{
-//
-//
-//
-//
-//    NSLog(@"selected row: %lu", row);
-//    switch (row) {
-//        case 0:
-//            self.item1 = @"Hoodie";
-//            NSLog(@"%@", self.item1);
-//            break;
-//        case 1:
-//            self.item2 = @"Sweatshirt";
-//            NSLog(@"%@", self.item2);
-//            break;
-//        default:
-//            self.item1 = @"Other than Hoodie";
-//            NSLog(@"Some other piece");
-//            break;
-//    }
-//
-//    self.clothingPieces = [NSMutableArray arrayWithObjects:self.item1, self.item2, nil];
-//
-//   // NSLog(@"%lu, %lu", row, component);
-//}
-//
-//- (IBAction)onAddClothingItem:(UIButton *)sender {
-//
-//
-//    NSMutableArray *newArray = [NSMutableArray arrayWithObjects:self.item1, self.item2, nil];
-//
-//    NSLog(@"%@", self.clothingPieces);
-//
-//}
 
 
 @end
