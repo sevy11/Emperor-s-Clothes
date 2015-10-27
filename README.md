@@ -8,4 +8,4 @@ app will assign a day to a clothing item to wear. The outfit it picks is based o
 
 ![Image](http://github.com/sevy11/Emperor-s-Clothes/blob/master/EmperorsClothes/Images.xcassets/Screen Shot 2015-10-21 at 4.33.08 PM.imageset/Screen Shot 2015-10-21 at 4.33.08 PM.png)
 
-![Image](http://github.com/sevy11/Emperor-s-Clothes/blob/master/EmperorsClothes/Images.xcassets/Screen Shot 2015-10-19 at 7.19.28 AM.imageset/Screen Shot 2015-10-18 at 7.19.28 AM.png)
+![Image](http://github.com/sevy11/Emperor-s-Clothes/blob/master/EmperorsClothes/Images.xcassets/Screen Shot 2015-10-21 at 7.19.28 AM.imageset/Screen Shot 2015-10-21 at 7.19.28 AM.png)
