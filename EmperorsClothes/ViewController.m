@@ -132,7 +132,6 @@
 
     //get the current wardrobe items and assign new item the next sequential number
     PFQuery *query = [PFQuery queryWithClassName:@"Wardrobe"];
-   // [query whereKey:@"senderId" equalTo:[[PFUser currentUser] objectId]];
 
     [query findObjectsInBackgroundWithBlock:^(NSArray * _Nullable objects, NSError * _Nullable error) {
 
@@ -613,9 +612,7 @@
     UIAlertAction *takePicture = [UIAlertAction actionWithTitle:@"Add Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"take a picture");
 
-
-
-
+        
     }];
 
     [alert addAction:takePicture];

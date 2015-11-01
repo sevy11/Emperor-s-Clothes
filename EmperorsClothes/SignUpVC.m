@@ -38,9 +38,7 @@
     NSString *username = [self.username.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *password = [self.password.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
     NSString *email = [self.email.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
-    //    NSString *hometown = [self.hometown.text stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
 
-    //doesnt like screen enter if there's white space
     if ([username length] == 0 || [password length] == 0 || [email length] == 0) {
         UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Make sure you enter a Username, Password, and Email Address" preferredStyle:UIAlertControllerStyleAlert];
 
@@ -51,7 +49,7 @@
         [self presentViewController:alert animated:YES completion:nil];
 
     } else  {
-        //if all correctly entered inities new PFUser and sets equal to textFields entered
+
         PFUser *newUser = [PFUser user];
         newUser.username = username;
         newUser.password = password;
@@ -74,7 +72,6 @@
 
 
 -(BOOL)textFieldShouldReturn:(UITextField *)textField{
-    //delegate methods that hides first responder when enter is hit from the UItextfield
     [textField resignFirstResponder];
     return YES;
 }

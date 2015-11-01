@@ -31,8 +31,6 @@
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
 
-//    [self.navigationController.navigationBar setHidden:YES];
-    
 }
 
 
@@ -69,12 +67,6 @@
 
     return  YES;
 }
-
-
-//- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-//    // Get the new view controller using [segue destinationViewController].
-//    // Pass the selected object to the new view controller.
-//}
 
 
 @end

@@ -11,6 +11,7 @@
 #import <CoreLocation/CoreLocation.h>
 
 @interface RootViewController ()<CLLocationManagerDelegate, UITableViewDataSource, UITableViewDelegate>
+
 @property (weak, nonatomic) IBOutlet UIButton *addToWardrobe;
 @property (weak, nonatomic) IBOutlet UIButton *randomizeWardrobe;
 
@@ -110,19 +111,15 @@
 
             for (int i = 0; i < 14; i++) {
 
+            if (i == 1) {
+            NSLog(@"Only one Outfit");
+            PFObject *obbie1 = [objects objectAtIndex:0];
+            // NSString *number = [obbie1 objectForKey:@"number"];
+            NSString *color1Local = [obbie1 objectForKey:@"color"];
+            NSString *top1Local = [obbie1 objectForKey:@"topItem"];
+            NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
+            self.firstly = [NSString stringWithFormat:@"%@ %@ %@", color1Local, top1Local, descr1Local];
 
-                if (i == 1) {
-
-                NSLog(@"Only one Outfit");
-                PFObject *obbie1 = [objects objectAtIndex:0];
-                // NSString *number = [obbie1 objectForKey:@"number"];
-                NSString *color1Local = [obbie1 objectForKey:@"color"];
-                NSString *top1Local = [obbie1 objectForKey:@"topItem"];
-                NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
-                self.firstly = [NSString stringWithFormat:@"%@ %@ %@", color1Local, top1Local, descr1Local];
-
-
-        //} else if ([objects count] == 2){
             } if (i == 2){
 
             PFObject *obbie1 = [objects objectAtIndex:0];
@@ -136,7 +133,6 @@
             NSString *descr2Local = [obbie2 objectForKey:@"itemDetail"];
             self.second = [NSString stringWithFormat:@"%@ %@ %@", color2Local, top2Local, descr2Local];
 
-//        } if ([objects count] == 3){
             } if (i == 3){
 
             PFObject *obbie1 = [objects objectAtIndex:0];
@@ -155,40 +151,35 @@
             NSString *descr3Local = [obbie3 objectForKey:@"itemDetail"];
             self.third = [NSString stringWithFormat:@"%@ %@ %@", color3Local, top3Local, descr3Local];
 
-//            } if ([objects count] == 4) {
-            // if (i == 4){
             } if (i == 4) {
 
-
-                PFObject *obbie1 = [objects objectAtIndex:0];
-                // NSString *number = [obbie1 objectForKey:@"number"];
-                NSString *color1Local = [obbie1 objectForKey:@"color"];
-                NSString *top1Local = [obbie1 objectForKey:@"topItem"];
-                NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
-                self.firstly = [NSString stringWithFormat:@"%@ %@ %@", color1Local, top1Local, descr1Local];
-                PFObject *obbie2 = [objects objectAtIndex:1];
-                NSString *color2Local = [obbie2 objectForKey:@"color"];
-                NSString *top2Local = [obbie2 objectForKey:@"topItem"];
-                NSString *descr2Local = [obbie2 objectForKey:@"itemDetail"];
-                self.second = [NSString stringWithFormat:@"%@ %@ %@", color2Local, top2Local, descr2Local];
-                PFObject *obbie3 = [objects objectAtIndex:2];
-                NSString *color3Local = [obbie3 objectForKey:@"color"];
-                NSString *top3Local = [obbie3 objectForKey:@"topItem"];
-                NSString *descr3Local = [obbie3 objectForKey:@"itemDetail"];
-                self.third = [NSString stringWithFormat:@"%@ %@ %@", color3Local, top3Local, descr3Local];
-                PFObject *obbie4 = [objects objectAtIndex:3];
-                NSString *color4Local = [obbie4 objectForKey:@"color"];
-                NSString *top4Local = [obbie4 objectForKey:@"topItem"];
-                NSString *descr4Local = [obbie4 objectForKey:@"itemDetail"];
-                self.forth = [NSString stringWithFormat:@"%@ %@ %@", color4Local, top4Local, descr4Local];
-
-
-                } if (i == 5) {
-
-
-      //  if ([objects count] == 5) {
             PFObject *obbie1 = [objects objectAtIndex:0];
             // NSString *number = [obbie1 objectForKey:@"number"];
+            NSString *color1Local = [obbie1 objectForKey:@"color"];
+            NSString *top1Local = [obbie1 objectForKey:@"topItem"];
+            NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
+            self.firstly = [NSString stringWithFormat:@"%@ %@ %@", color1Local, top1Local, descr1Local];
+            PFObject *obbie2 = [objects objectAtIndex:1];
+            NSString *color2Local = [obbie2 objectForKey:@"color"];
+            NSString *top2Local = [obbie2 objectForKey:@"topItem"];
+            NSString *descr2Local = [obbie2 objectForKey:@"itemDetail"];
+            self.second = [NSString stringWithFormat:@"%@ %@ %@", color2Local, top2Local, descr2Local];
+            PFObject *obbie3 = [objects objectAtIndex:2];
+            NSString *color3Local = [obbie3 objectForKey:@"color"];
+            NSString *top3Local = [obbie3 objectForKey:@"topItem"];
+            NSString *descr3Local = [obbie3 objectForKey:@"itemDetail"];
+            self.third = [NSString stringWithFormat:@"%@ %@ %@", color3Local, top3Local, descr3Local];
+            PFObject *obbie4 = [objects objectAtIndex:3];
+            NSString *color4Local = [obbie4 objectForKey:@"color"];
+            NSString *top4Local = [obbie4 objectForKey:@"topItem"];
+            NSString *descr4Local = [obbie4 objectForKey:@"itemDetail"];
+            self.forth = [NSString stringWithFormat:@"%@ %@ %@", color4Local, top4Local, descr4Local];
+
+
+            } if (i == 5) {
+
+
+            PFObject *obbie1 = [objects objectAtIndex:0];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -213,13 +204,10 @@
             NSString *top5Local = [obbie5 objectForKey:@"topItem"];
             NSString *descr5Local = [obbie5 objectForKey:@"itemDetail"];
             self.fifth = [NSString stringWithFormat:@"%@ %@ %@", color5Local, top5Local, descr5Local];
-                }
-//        if ([objects count] == 6) {
-                if (i == 6) {
 
+            }    if (i == 6) {
 
-                PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
+            PFObject *obbie1 = [objects objectAtIndex:0];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -250,12 +238,9 @@
             NSString *descr6Local = [obbie6 objectForKey:@"itemDetail"];
             self.sixth = [NSString stringWithFormat:@"%@ %@ %@", color6Local, top6Local, descr6Local];
 
-                } if (i == 7) {
+            } if (i == 7) {
 
-
-       // if ([objects count] == 7) {
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -291,12 +276,9 @@
             NSString *descr7Local = [obbie7 objectForKey:@"itemDetail"];
             self.seventh = [NSString stringWithFormat:@"%@ %@ %@", color7Local, top7Local, descr7Local];
 
-                }   if (i == 8) {
+            }   if (i == 8) {
 
-
-     //   if ([objects count] == 8) {
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -337,12 +319,9 @@
             NSString *descr8Local = [obbie8 objectForKey:@"itemDetail"];
             self.eigth = [NSString stringWithFormat:@"%@ %@ %@", color8Local, top8Local, descr8Local];
 
-                }  if (i == 9) {
+            }  if (i == 9) {
 
-
-        //if ([objects count] == 9) {
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -388,11 +367,9 @@
             NSString *descr9Local = [obbie9 objectForKey:@"itemDetail"];
             self.ninth = [NSString stringWithFormat:@"%@ %@ %@", color9Local, top9Local, descr9Local];
 
-
             }   if (i == 10){
-      //  if ([objects count] == 9) {
+
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -442,13 +419,10 @@
             NSString *top10Local = [obbie10 objectForKey:@"topItem"];
             NSString *descr10Local = [obbie10 objectForKey:@"itemDetail"];
             self.tenth = [NSString stringWithFormat:@"%@ %@ %@", color10Local, top10Local, descr10Local];
-        }
-                if (i == 11) {
 
+            }  if (i == 11) {
 
-       // if ([objects count] == 10) {
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -503,12 +477,11 @@
             NSString *top11Local = [obbie11 objectForKey:@"topItem"];
             NSString *descr11Local = [obbie11 objectForKey:@"itemDetail"];
             self.ele = [NSString stringWithFormat:@"%@ %@ %@", color11Local, top11Local, descr11Local];
-        }
 
-                if (i == 12){
-      //  if ([objects count] == 11) {
+
+            }   if (i == 12){
+
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -568,12 +541,11 @@
             NSString *top12Local = [obbie12 objectForKey:@"topItem"];
             NSString *descr12Local = [obbie12 objectForKey:@"itemDetail"];
             self.twel = [NSString stringWithFormat:@"%@ %@ %@", color12Local, top12Local, descr12Local];
-        }
 
-                if (i == 13){
-       // if ([objects count] == 12) {
+
+            }   if (i == 13){
+
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -643,11 +615,8 @@
                 }   if  (i == 14)   {
 
                 }
-       // if ([objects count] == 13) {
-
 
             PFObject *obbie1 = [objects objectAtIndex:0];
-            // NSString *number = [obbie1 objectForKey:@"number"];
             NSString *color1Local = [obbie1 objectForKey:@"color"];
             NSString *top1Local = [obbie1 objectForKey:@"topItem"];
             NSString *descr1Local = [obbie1 objectForKey:@"itemDetail"];
@@ -733,11 +702,6 @@
     }
 
 
-//- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
-//{
-//    NSLog(@"last object coming fom here: %@", [locations lastObject]);
-//
-//}
 -(void)viewDidAppear:(BOOL)animated{
     [super viewDidAppear:animated];
     [self performCitySearch:@"41" andLon:@"-93"];
@@ -942,9 +906,6 @@
 -(void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath{
 
     cell.detailTextLabel.backgroundColor = [UIColor whiteColor];
-//    celloid.detailTextLabel.backgroundColor = [UIColor whiteColor];
-  //  cell.detailTextLabel.backgroundColor = [self.tableColorWheel objectAtIndex:indexPath.row];
-
 
 }
 @end
