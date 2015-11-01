@@ -6,4 +6,4 @@ app will assign a day to a clothing item to wear. The outfit it picks is based o
 
 ![image](https://cloud.githubusercontent.com/assets/8518882/10871534/9e6a445a-80af-11e5-819c-9cfbf44d497b.png)
 ![image](https://cloud.githubusercontent.com/assets/8518882/10871536/a5b2a414-80af-11e5-93d0-fcd414cf0b24.png)
-![image](https://cloud.githubusercontent.com/assets/8518882/10871534/9e6a445a-80af-11e5-819c-9cfbf44d497b.png)
+![image](https://cloud.githubusercontent.com/assets/8518882/10871540/ae730c4c-80af-11e5-92a6-faf82523c9ba.png)
