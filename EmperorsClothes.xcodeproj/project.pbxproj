@@ -31,6 +31,8 @@
 		26A839751B10C6460008A0C9 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 26A839731B10C6460008A0C9 /* LaunchScreen.xib */; };
 		26A839811B10C6470008A0C9 /* EmperorsClothesTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A839801B10C6470008A0C9 /* EmperorsClothesTests.m */; };
 		26A8398C1B10CC650008A0C9 /* Wardrobe.m in Sources */ = {isa = PBXBuildFile; fileRef = 26A8398B1B10CC650008A0C9 /* Wardrobe.m */; };
+		26F2B2011BE7FAF400AB8923 /* MediaPlayer.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26F2B2001BE7FAF400AB8923 /* MediaPlayer.framework */; };
+		26F2B2031BE7FB0E00AB8923 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 26F2B2021BE7FB0E00AB8923 /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +82,8 @@
 		26A839801B10C6470008A0C9 /* EmperorsClothesTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmperorsClothesTests.m; sourceTree = "<group>"; };
 		26A8398A1B10CC650008A0C9 /* Wardrobe.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Wardrobe.h; sourceTree = "<group>"; };
 		26A8398B1B10CC650008A0C9 /* Wardrobe.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Wardrobe.m; sourceTree = "<group>"; };
+		26F2B2001BE7FAF400AB8923 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		26F2B2021BE7FB0E00AB8923 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,6 +91,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				26F2B2031BE7FB0E00AB8923 /* MobileCoreServices.framework in Frameworks */,
+				26F2B2011BE7FAF400AB8923 /* MediaPlayer.framework in Frameworks */,
 				2681DBE61BCAE6CF006F786E /* CoreLocation.framework in Frameworks */,
 				2681DBF01BCAE771006F786E /* libsqlite3.0.tbd in Frameworks */,
 				2681DBEE1BCAE701006F786E /* Security.framework in Frameworks */,
@@ -143,6 +149,8 @@
 		26A839581B10C6460008A0C9 = {
 			isa = PBXGroup;
 			children = (
+				26F2B2021BE7FB0E00AB8923 /* MobileCoreServices.framework */,
+				26F2B2001BE7FAF400AB8923 /* MediaPlayer.framework */,
 				2681DBEF1BCAE771006F786E /* libsqlite3.0.tbd */,
 				2681DBED1BCAE701006F786E /* Security.framework */,
 				2681DBEB1BCAE6F5006F786E /* StoreKit.framework */,

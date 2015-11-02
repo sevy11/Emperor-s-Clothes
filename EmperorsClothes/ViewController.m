@@ -248,7 +248,8 @@
     if (self.male) {
 
         self.third = @"Hoodie";
-
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         self.upperleftImage.hidden = YES;
         self.upperRightImage.hidden = YES;
         self.lowerLeftImage.hidden = YES;
@@ -264,6 +265,8 @@
     } else {
         self.third = @"Blouse";
 
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         self.upperleftImage.hidden = YES;
         self.upperRightImage.hidden = YES;
         self.lowerLeftImage.hidden = YES;
@@ -282,6 +285,8 @@
     if (self.male) {
         self.third = @"Sweater";
 
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         //change view
         self.instructionsLabel.text = @"Choose sweater color";
 
@@ -297,6 +302,8 @@
 
     } else {
 
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         self.third = @"Sweater";
 
         //change view
@@ -321,7 +328,8 @@
 
         //change view
         self.instructionsLabel.text = @"Choose Tee color";
-
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         self.upperleftImage.hidden = YES;
         self.upperRightImage.hidden = YES;
         self.lowerLeftImage.hidden = YES;
@@ -335,6 +343,8 @@
     } else {
         self.third = @"Button down";
 
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         //change view
         self.instructionsLabel.text = @"Choose button-down color";
         self.upperleftImage.hidden = YES;
@@ -353,6 +363,8 @@
     if (self.male) {
 
         self.third = @"Button down";
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
 
         //change view
         self.instructionsLabel.text = @"Choose button down color";
@@ -368,6 +380,8 @@
     } else if(!self.male){
         self.third = @"T-Shirt";
 
+        self.saveButton.hidden = NO;
+        self.selectedImage.hidden = NO;
         //change view
         self.instructionsLabel.text = @"Choose Tee color ";
         self.upperleftImage.hidden = YES;
@@ -510,19 +524,23 @@
         NSLog(@"canceled");
     }];
     UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"Add Another Item" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-        self.saveButton.hidden = YES;
-        self.selectedImage.hidden = YES;
+
         //add one to the number and set everythign back to no value
         self.first = self.first + 1;
         //second stays the same (sex)
+
         self.third = @"";//topItem
         self.forth = @"";//color
         self.fifth = @"";//detail
         self.sixth = @"";//rating
 
+        self.saveButton.hidden = YES;
+        self.selectedImage.hidden = YES;
+
         NSLog(@"reset all wardrobe properties: %i, top: %@, color: %@, details: %@, rating: %@", self.first, self.third, self.forth, self.fifth, self.sixth);
 
         if (self.male == YES) {
+
             //bring male options back
             self.upperleftImage.hidden = NO;
             self.upperRightImage.hidden = NO;
@@ -564,6 +582,7 @@
             self.lowerRightImage.userInteractionEnabled = YES;
 
         } else {
+            //female
             self.upperleftImage.hidden = NO;
             self.upperRightImage.hidden = NO;
             self.lowerLeftImage.hidden = NO;
