@@ -11,9 +11,14 @@
 #import "Color.h"
 #import <Parse/Parse.h>
 #import "LogInViewController.h"
+#import <MobileCoreServices/UTCoreTypes.h>
 
-@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate>
+@interface ViewController ()<UITableViewDataSource, UITableViewDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate>
 //Buttons
+@property UIImagePickerController *imagePicker;
+@property UIImage *image;
+@property (weak, nonatomic) IBOutlet UIButton *saveWardrobePicture;
+
 @property (weak, nonatomic) IBOutlet UIButton *femaleButton;
 @property (weak, nonatomic) IBOutlet UIButton *maleButton;
 @property (weak, nonatomic) IBOutlet UIButton *saveButton;
@@ -68,6 +73,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+
+    self.saveWardrobePicture.hidden = YES;
 
     //self.scrollView.scrollEnabled = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
@@ -524,103 +531,13 @@
         NSLog(@"canceled");
     }];
     UIAlertAction *continueAction = [UIAlertAction actionWithTitle:@"Add Another Item" style:UIAlertActionStyleDestructive handler:^(UIAlertAction * _Nonnull action) {
-
-        //add one to the number and set everythign back to no value
-        self.first = self.first + 1;
-        //second stays the same (sex)
-
-        self.third = @"";//topItem
-        self.forth = @"";//color
-        self.fifth = @"";//detail
-        self.sixth = @"";//rating
-
-        self.saveButton.hidden = YES;
-        self.selectedImage.hidden = YES;
-
-        NSLog(@"reset all wardrobe properties: %i, top: %@, color: %@, details: %@, rating: %@", self.first, self.third, self.forth, self.fifth, self.sixth);
+        [self resetInputs];
 
         if (self.male == YES) {
-
-            //bring male options back
-            self.upperleftImage.hidden = NO;
-            self.upperRightImage.hidden = NO;
-            self.lowerLeftImage.hidden = NO;
-            self.lowerRightImage.hidden = NO;
-
-            self.upperleftImage.image = [UIImage imageNamed:@"hoodieM"];
-            self.upperRightImage.image = [UIImage imageNamed:@"tshirt"];
-            self.lowerLeftImage.image = [UIImage imageNamed:@"mensSweater"];
-            self.lowerRightImage.image = [UIImage imageNamed:@"mensButtonD"];
-
-            UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
-            tapGesture1.numberOfTapsRequired = 1;
-            [tapGesture1 setDelegate:self];
-            [self.upperleftImage addGestureRecognizer:tapGesture1];
-            tapGesture1.delegate = self;
-
-            UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
-            tapGesture2.numberOfTapsRequired = 1;
-            [tapGesture2 setDelegate:self];
-            [self.lowerLeftImage addGestureRecognizer:tapGesture2];
-            tapGesture2.delegate = self;
-
-            UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
-            tapGesture3.numberOfTapsRequired = 1;
-            [tapGesture3 setDelegate:self];
-            [self.upperRightImage addGestureRecognizer:tapGesture3];
-            tapGesture3.delegate = self;
-
-            UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
-            tapGesture4.numberOfTapsRequired = 1;
-            [tapGesture4 setDelegate:self];
-            [self.lowerRightImage addGestureRecognizer:tapGesture4];
-            tapGesture4.delegate = self;
-
-            self.upperleftImage.userInteractionEnabled = YES;
-            self.upperRightImage.userInteractionEnabled = YES;
-            self.lowerLeftImage.userInteractionEnabled = YES;
-            self.lowerRightImage.userInteractionEnabled = YES;
-
+            [self maleReload];
         } else {
             //female
-            self.upperleftImage.hidden = NO;
-            self.upperRightImage.hidden = NO;
-            self.lowerLeftImage.hidden = NO;
-            self.lowerRightImage.hidden = NO;
-
-            self.upperleftImage.image = [UIImage imageNamed:@"blouse"];
-            self.upperRightImage.image = [UIImage imageNamed:@"womensButtonD"];
-            self.lowerLeftImage.image = [UIImage imageNamed:@"womensSweater"];
-            self.lowerRightImage.image = [UIImage imageNamed:@"tshirt"];
-
-            UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
-            tapGesture1.numberOfTapsRequired = 1;
-            [tapGesture1 setDelegate:self];
-            [self.upperleftImage addGestureRecognizer:tapGesture1];
-            tapGesture1.delegate = self;
-
-            UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
-            tapGesture2.numberOfTapsRequired = 1;
-            [tapGesture2 setDelegate:self];
-            [self.lowerLeftImage addGestureRecognizer:tapGesture2];
-            tapGesture2.delegate = self;
-
-            UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
-            tapGesture3.numberOfTapsRequired = 1;
-            [tapGesture3 setDelegate:self];
-            [self.upperRightImage addGestureRecognizer:tapGesture3];
-            tapGesture3.delegate = self;
-
-            UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
-            tapGesture4.numberOfTapsRequired = 1;
-            [tapGesture4 setDelegate:self];
-            [self.lowerRightImage addGestureRecognizer:tapGesture4];
-            tapGesture4.delegate = self;
-
-            self.upperleftImage.userInteractionEnabled = YES;
-            self.upperRightImage.userInteractionEnabled = YES;
-            self.lowerLeftImage.userInteractionEnabled = YES;
-            self.lowerRightImage.userInteractionEnabled = YES;
+            [self femaleReload];
         }
     }];
 
@@ -628,13 +545,33 @@
         [self performSegueWithIdentifier:@"Wardrobe" sender:self];
     }];
 
-    UIAlertAction *takePicture = [UIAlertAction actionWithTitle:@"Add Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+    UIAlertAction *takePictureAction = [UIAlertAction actionWithTitle:@"Add Image" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
         NSLog(@"take a picture");
 
-        
+        self.selectedImage.hidden = YES;
+
+        self.imagePicker = [UIImagePickerController new];
+        self.imagePicker.delegate = self;
+        self.imagePicker.allowsEditing = NO;
+
+        //checking to see if we are on sim or on a real device to actually use the camera or else a coleeciton saved on sim
+        if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+
+        } else {
+            self.imagePicker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        }
+
+        self.imagePicker.mediaTypes = [UIImagePickerController availableMediaTypesForSourceType:self.imagePicker.sourceType];
+        [self presentViewController:self.imagePicker animated:NO completion:nil];
+
+        self.saveWardrobePicture.hidden = NO;
+        [self reloadInputViews];
+   
     }];
 
-    [alert addAction:takePicture];
+
+    [alert addAction:takePictureAction];
     [alert addAction:cancelAction];
     [alert addAction:continueAction];
     [alert addAction:wardrobeAction];
@@ -644,6 +581,129 @@
 }
 
 
+#pragma mark -- controlling the UIPickerController
+-(void)imagePickerControllerDidCancel:(UIImagePickerController *)picker{
+    [self dismissViewControllerAnimated:NO completion:nil];
+}
+
+//taking the pics/videos and saving them
+-(void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary *)info{
+
+    NSString *mediaType = [info objectForKey:UIImagePickerControllerMediaType];
+
+    if ([mediaType isEqualToString:(NSString *)kUTTypeImage]) {
+        //photo taken or selelcted
+        self.image = [info objectForKey:UIImagePickerControllerOriginalImage];
+        //check for if the pic came from the camera
+        if (self.imagePicker.sourceType == UIImagePickerControllerSourceTypeCamera) {
+            //save image
+            UIImageWriteToSavedPhotosAlbum(self.image, nil, nil, nil);
+        }
+
+    } else  {
+        NSLog(@"not a picture media type");
+        }
+
+    [self dismissViewControllerAnimated:YES completion:nil];
+    
+}
+
+- (IBAction)onSaveClothingImage:(UIButton *)sender {
+
+    if (self.image == nil) {
+        UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Try again" message:@"Please capture photo" preferredStyle:UIAlertControllerStyleAlert];
+        UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+
+        [alert addAction:action];
+        [self presentViewController:alert animated:NO completion:nil];
+
+    } else{
+        [self uploadMessage];
+        NSLog(@"Image Uploaded");
+        [self.saveWardrobePicture setTitle:@"Saved!" forState:UIControlStateHighlighted];
+
+        self.saveWardrobePicture.hidden = YES;
+        [self resetInputs];
+        if (self.male) {
+            [self maleReload];
+        } else {
+            [self femaleReload];
+        }
+    }
+}
+
+
+
+-(void)uploadMessage{
+    //two step 1)image 2)file message
+    NSData *fileData;
+    NSString *fileName;
+
+    //check if image or video, if it is resize with helper method
+    if (self.image !=nil) {
+        //resized image- can put in an if statement for different iphone screen sizes
+        UIImage *newImage = [self resizeImage:self.image withWidth:320.0f andHeight:480.0f];
+        fileData = UIImagePNGRepresentation(newImage);
+        fileName = @"image.png";
+    }
+
+    //upload file of image/video
+    PFFile *file = [PFFile fileWithName:fileName data:fileData];
+
+    [file saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+        if (error) {
+            UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please try and save again" preferredStyle:UIAlertControllerStyleAlert];
+            UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+
+            [alert addAction:action];
+            [self presentViewController:alert animated:NO completion:nil];
+        } else  {
+
+            //upload message to Parse, designate a new message Class
+            PFObject *message = [PFObject objectWithClassName:@"Wardrobe"];
+            //making association btw files and messages
+            [message setObject:file forKey:@"file"];
+            [message setObject:[[PFUser currentUser] objectId] forKey:@"senderId"];
+           // [message setObject:[[PFUser currentUser] username] forKey:@"senderName"];
+
+            [message saveInBackgroundWithBlock:^(BOOL succeeded, NSError *error){
+                if (error) {
+                    UIAlertController *alert = [UIAlertController alertControllerWithTitle:@"Error" message:@"Please try and save again" preferredStyle:UIAlertControllerStyleAlert];
+                    UIAlertAction *action = [UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil];
+
+                    [alert addAction:action];
+                    [self presentViewController:alert animated:NO completion:nil];
+                    
+                } else{
+                    NSLog(@"message and file were uploaded to parse");
+                    [self reset];
+                    
+                }
+            }];
+        }
+    }];
+}
+
+
+- (void)reset {
+    self.image = nil;
+
+}
+
+
+-(UIImage *)resizeImage:(UIImage *)image withWidth:(float)width andHeight:(float)height{
+    CGSize newSize = CGSizeMake(width, height);
+    CGRect newRect = CGRectMake(0, 0, width, height);
+
+    UIGraphicsBeginImageContext(newSize);
+    [image  drawInRect:newRect];
+    UIImage *resizedImage = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+
+    return resizedImage;
+    
+}
+
 #pragma mark 8 -- logout
 - (IBAction)onLogoutTapped:(UIBarButtonItem *)sender {
 
@@ -651,8 +711,107 @@
     [self performSegueWithIdentifier:@"Logout" sender:self];
 }
 
+//helpers
+-(void)resetInputs{
+
+    //add one to the number and set everythign back to no value
+    self.first = self.first + 1;
+    //second stays the same (sex)
+
+    self.third = @"";//topItem
+    self.forth = @"";//color
+    self.fifth = @"";//detail
+    self.sixth = @"";//rating
+
+    self.saveButton.hidden = YES;
+    self.selectedImage.hidden = YES;
+
+    NSLog(@"reset all wardrobe properties: %i, top: %@, color: %@, details: %@, rating: %@", self.first, self.third, self.forth, self.fifth, self.sixth);
+}
+
+-(void)femaleReload{
+    self.upperleftImage.hidden = NO;
+    self.upperRightImage.hidden = NO;
+    self.lowerLeftImage.hidden = NO;
+    self.lowerRightImage.hidden = NO;
+
+    self.upperleftImage.image = [UIImage imageNamed:@"blouse"];
+    self.upperRightImage.image = [UIImage imageNamed:@"womensButtonD"];
+    self.lowerLeftImage.image = [UIImage imageNamed:@"womensSweater"];
+    self.lowerRightImage.image = [UIImage imageNamed:@"tshirt"];
+
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
+    tapGesture1.numberOfTapsRequired = 1;
+    [tapGesture1 setDelegate:self];
+    [self.upperleftImage addGestureRecognizer:tapGesture1];
+    tapGesture1.delegate = self;
+
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
+    tapGesture2.numberOfTapsRequired = 1;
+    [tapGesture2 setDelegate:self];
+    [self.lowerLeftImage addGestureRecognizer:tapGesture2];
+    tapGesture2.delegate = self;
+
+    UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
+    tapGesture3.numberOfTapsRequired = 1;
+    [tapGesture3 setDelegate:self];
+    [self.upperRightImage addGestureRecognizer:tapGesture3];
+    tapGesture3.delegate = self;
+
+    UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
+    tapGesture4.numberOfTapsRequired = 1;
+    [tapGesture4 setDelegate:self];
+    [self.lowerRightImage addGestureRecognizer:tapGesture4];
+    tapGesture4.delegate = self;
+
+    self.upperleftImage.userInteractionEnabled = YES;
+    self.upperRightImage.userInteractionEnabled = YES;
+    self.lowerLeftImage.userInteractionEnabled = YES;
+    self.lowerRightImage.userInteractionEnabled = YES;
+}
 
 
+-(void)maleReload{
+    //bring male options back
+    self.upperleftImage.hidden = NO;
+    self.upperRightImage.hidden = NO;
+    self.lowerLeftImage.hidden = NO;
+    self.lowerRightImage.hidden = NO;
+
+    self.upperleftImage.image = [UIImage imageNamed:@"hoodieM"];
+    self.upperRightImage.image = [UIImage imageNamed:@"tshirt"];
+    self.lowerLeftImage.image = [UIImage imageNamed:@"mensSweater"];
+    self.lowerRightImage.image = [UIImage imageNamed:@"mensButtonD"];
+
+    UITapGestureRecognizer *tapGesture1 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperleftGesture:)];
+    tapGesture1.numberOfTapsRequired = 1;
+    [tapGesture1 setDelegate:self];
+    [self.upperleftImage addGestureRecognizer:tapGesture1];
+    tapGesture1.delegate = self;
+
+    UITapGestureRecognizer *tapGesture2 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerLeftGesture:)];
+    tapGesture2.numberOfTapsRequired = 1;
+    [tapGesture2 setDelegate:self];
+    [self.lowerLeftImage addGestureRecognizer:tapGesture2];
+    tapGesture2.delegate = self;
+
+    UITapGestureRecognizer *tapGesture3 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(upperRightGest:)];
+    tapGesture3.numberOfTapsRequired = 1;
+    [tapGesture3 setDelegate:self];
+    [self.upperRightImage addGestureRecognizer:tapGesture3];
+    tapGesture3.delegate = self;
+
+    UITapGestureRecognizer *tapGesture4 = [[UITapGestureRecognizer alloc] initWithTarget:self  action:@selector(lowerRight:)];
+    tapGesture4.numberOfTapsRequired = 1;
+    [tapGesture4 setDelegate:self];
+    [self.lowerRightImage addGestureRecognizer:tapGesture4];
+    tapGesture4.delegate = self;
+
+    self.upperleftImage.userInteractionEnabled = YES;
+    self.upperRightImage.userInteractionEnabled = YES;
+    self.lowerLeftImage.userInteractionEnabled = YES;
+    self.lowerRightImage.userInteractionEnabled = YES;
+}
 @end
 
 

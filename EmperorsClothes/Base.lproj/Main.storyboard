@@ -411,6 +411,20 @@
                                     <action selector="onAddButtonTaped:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="YbG-We-NrS"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9rF-G7-7XH">
+                                <rect key="frame" x="259" y="197" width="83" height="30"/>
+                                <color key="backgroundColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="83" id="BMU-8q-GLW"/>
+                                    <constraint firstAttribute="height" constant="30" id="SJk-Cs-ucT"/>
+                                </constraints>
+                                <state key="normal" title="Use Photo">
+                                    <color key="titleColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onSaveClothingImage:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="PMd-e0-daa"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -455,6 +469,8 @@
                             <constraint firstAttribute="trailing" secondItem="zSm-qG-KTl" secondAttribute="trailing" constant="20" id="WJ2-ZW-raM"/>
                             <constraint firstItem="fIy-Qn-H5Y" firstAttribute="leading" secondItem="qPx-vP-3eu" secondAttribute="trailing" constant="5" id="Wgg-OO-Am4"/>
                             <constraint firstItem="NeC-bt-ews" firstAttribute="trailing" secondItem="qPx-vP-3eu" secondAttribute="trailing" id="ZZA-8w-ihd"/>
+                            <constraint firstItem="9rF-G7-7XH" firstAttribute="leading" secondItem="NeC-bt-ews" secondAttribute="leading" constant="75" id="c6s-Rx-CsS"/>
+                            <constraint firstItem="rr2-F2-2qS" firstAttribute="top" secondItem="9rF-G7-7XH" secondAttribute="bottom" constant="59" id="cTz-nX-3TX"/>
                             <constraint firstItem="36q-Mk-Y0H" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="cW6-4z-lQF"/>
                             <constraint firstItem="2Sm-BY-54g" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="100" id="esZ-G9-T3p"/>
                             <constraint firstItem="RQK-Xc-tEB" firstAttribute="leading" secondItem="2Sm-BY-54g" secondAttribute="leading" id="fZY-xJ-UmG"/>
@@ -468,6 +484,7 @@
                             <constraint firstItem="rr2-F2-2qS" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="rE3-1F-aeQ"/>
                             <constraint firstItem="IJZ-VU-RJT" firstAttribute="top" secondItem="qPx-vP-3eu" secondAttribute="bottom" constant="35" id="s22-KD-e5G"/>
                             <constraint firstAttribute="trailing" secondItem="CBm-o4-UH9" secondAttribute="trailing" constant="20" id="sXW-Lp-j1t"/>
+                            <constraint firstItem="9rF-G7-7XH" firstAttribute="centerX" secondItem="kh9-bI-dsS" secondAttribute="centerX" id="tRL-Z3-M0W"/>
                             <constraint firstAttribute="trailing" secondItem="zSm-qG-KTl" secondAttribute="trailing" constant="20" id="tbC-pJ-sVz"/>
                             <constraint firstItem="xJy-9J-1xL" firstAttribute="leading" secondItem="kh9-bI-dsS" secondAttribute="leading" constant="30" id="xPQ-zH-B3G"/>
                             <constraint firstItem="xJy-9J-1xL" firstAttribute="top" secondItem="rr2-F2-2qS" secondAttribute="bottom" constant="5" id="xbg-55-L9V"/>
@@ -484,6 +501,7 @@
                                 <exclude reference="ORN-sX-t1l"/>
                                 <exclude reference="1nc-L7-YEZ"/>
                                 <exclude reference="pnv-sd-0Kz"/>
+                                <exclude reference="c6s-Rx-CsS"/>
                                 <exclude reference="A4b-bt-4qF"/>
                                 <exclude reference="giO-9i-TAJ"/>
                                 <exclude reference="5fh-Jl-SDz"/>
@@ -521,6 +539,7 @@
                         <outlet property="placeholderImage" destination="qPx-vP-3eu" id="qIr-ZJ-ZhU"/>
                         <outlet property="ratingLabel" destination="36q-Mk-Y0H" id="efE-Rp-kGB"/>
                         <outlet property="saveButton" destination="rr2-F2-2qS" id="tV0-nW-Ere"/>
+                        <outlet property="saveWardrobePicture" destination="9rF-G7-7XH" id="vsL-Cv-mWo"/>
                         <outlet property="selectedImage" destination="IJZ-VU-RJT" id="18h-54-jjP"/>
                         <outlet property="slider" destination="CBm-o4-UH9" id="1OK-Jj-1MX"/>
                         <outlet property="tableView" destination="zSm-qG-KTl" id="LSZ-zv-He1"/>
@@ -803,7 +822,7 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="Jeo-Rd-iCN"/>
-        <segue reference="VhK-Wr-mHN"/>
-        <segue reference="l07-uJ-NHh"/>
+        <segue reference="1Yi-0N-gdM"/>
+        <segue reference="OcZ-Tz-2GF"/>
     </inferredMetricsTieBreakers>
 </document>

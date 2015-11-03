@@ -877,10 +877,13 @@
             else if ((hours >= eveningHour) && (hours <= 24) && [skyType isEqualToString:@"Clear"]) {
                 // Evening/Night...
                 NSLog(@"Evening");
-                self.imageView.image = [UIImage imageNamed:@"Dark-Chicago"];
+                self.imageView.image = [UIImage imageNamed:@"clearNightNothernCity"];
 //                self.currentTemp.backgroundColor = [UIColor blackColor];
                 self.currentTemp.textColor = [UIColor whiteColor];
 
+            } else if ((hours >= eveningHour) && (hours <= 24) && [skyType isEqualToString:@"Clouds"]){
+                self.imageView.image = [UIImage imageNamed:@"cloudyNightskyline"];
+                self.currentTemp.textColor = [UIColor whiteColor];
             }
         }
     }];
